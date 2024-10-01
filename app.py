@@ -404,25 +404,25 @@ async def final_report(
 
 PATIENT_APP_URL = "http://localhost:5002/receive_report"  # Patient app URL
 
-@app.post("/send_to_patient")
-async def send_to_patient(patient_id: int = Form(...), report: str = Form(...)):
-    logging.info(f"Received id: {patient_id}, report: {report}")  # Debug logging
+# @app.post("/send_to_patient")
+# # async def send_to_patient(patient_id: int = Form(...), report: str = Form(...)):
+# #     logging.info(f"Received id: {patient_id}, report: {report}")  # Debug logging
 
-    data = {
-        "id": patient_id,
-        "report": report
-    }
+# #     data = {
+# #         "id": patient_id,
+# #         "report": report
+# #     }
 
-    try:
-        response = requests.post(PATIENT_APP_URL, json=data)
-        response.raise_for_status()
-        return RedirectResponse("/some_dashboard_or_success_page", status_code=303)
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Error sending report: {e}")
-        return {"error": "Failed to send the report to the patient."}
+# #     try:
+# #         response = requests.post(PATIENT_APP_URL, json=data)
+# #         response.raise_for_status()
+#         return RedirectResponse("/some_dashboard_or_success_page", status_code=303)
+#     except requests.exceptions.RequestException as e:
+#         logging.error(f"Error sending report: {e}")
+#         return {"error": "Failed to send the report to the patient."}
 
 
-# Error handling
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request: Request, exc: HTTPException):
-    return templates.TemplateResponse("404.html", {"request": request, "error": exc.detail}, status_code=exc.status_code)
+# # Error handling
+# @app.exception_handler(HTTPException)
+# async def http_exception_handler(request: Request, exc: HTTPException):
+#     return templates.TemplateResponse("404.html", {"request": request, "error": exc.detail}, status_code=exc.status_code)
